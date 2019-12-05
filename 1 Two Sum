@@ -1,0 +1,30 @@
+Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+Example:
+Given nums = [2, 7, 11, 15], target = 9,
+Because nums[0] + nums[1] = 2 + 7 = 9,
+return [0, 1].
+
+solutions:
+Javascript: https://leetcode.com/problems/two-sum/discuss/173262/JavaScript-Solution
+
+var twoSum = function(nums, target) {
+    // Create a new map object
+    const map = new Map()
+    // Iterate through the numbers
+    for(let i = 0; i<nums.length; i++){
+        // calculate the complement of the target value
+        const complement = target - nums[i]
+        // if the complement is already found
+        if(complement in map){
+            // return the index of the complement, and current index
+            return [map[complement],i]
+        }
+        // else, add the number to the map
+        map[nums[i]] = i
+    }
+};
+
+
+
+
