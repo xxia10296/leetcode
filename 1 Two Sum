@@ -6,24 +6,76 @@ Because nums[0] + nums[1] = 2 + 7 = 9,
 return [0, 1].
 
 solutions:
-Javascript: https://leetcode.com/problems/two-sum/discuss/173262/JavaScript-Solution
+Javascript: 
+https://leetcode.com/problems/two-sum/discuss/173262/JavaScript-Solution
 
-var twoSum = function(nums, target) {
-    // Create a new map object
-    const map = new Map()
-    // Iterate through the numbers
-    for(let i = 0; i<nums.length; i++){
-        // calculate the complement of the target value
-        const complement = target - nums[i]
-        // if the complement is already found
-        if(complement in map){
-            // return the index of the complement, and current index
-            return [map[complement],i]
-        }
-        // else, add the number to the map
-        map[nums[i]] = i
+const twoSum = (nums, target) => {
+  const map = {};
+  for (let i = 0; i < nums.length; i++) {
+    const another = target - nums[i];
+    if (another in map) {
+      return [map[another], i];
     }
+    map[nums[i]] = i;
+  }
+  return null;
 };
+
+
+python:
+https://leetcode.com/problems/two-sum/discuss/265112/Python-and-Javascript-solutions-beat-100-with-commentary
+	def twoSum(self, nums, target):
+
+		# Numbers that are needed to meet the target will be stored here along with an index of a complementary number.
+		wanted_nums = {}
+
+		# Interating through a list of numbers 
+		for i in range(len(nums)):
+
+			# If number in wanted_nums it means we've got the sum!
+			if nums[i] in wanted_nums:
+				return [wanted_nums[nums[i]], i]
+
+			# If not, we store the difference (so the number we seek) along with an index
+			else:
+				wanted_nums[target - nums[i]] = i
+
+
+https://www.youtube.com/watch?v=gCin6Qz-eJQ
+A=[1,2,3,4,5]
+target=6
+
+def two_sum_brutal_force(A, target):
+    for i in range(len(A)-1):
+       for j in range(i+1, len(A)):
+          if A[i]+A[j]==target:
+           print(A[i], A[j])
+           return True
+    return False
+     
+def two_sum_hash_table(A, target):
+    ht=dict()
+    for i in range(len(A)):
+        if A[i] in ht:
+          print(ht[A[i]], A[i])
+          return True
+        else:
+          ht[target - A[i]] = A[i]
+    return False
+
+print(two_sum_brutal_force(A, target))
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
