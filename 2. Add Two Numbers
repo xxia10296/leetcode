@@ -6,6 +6,9 @@ Summary: create a new list l3, and new dummy node. Sum up l1 and l2 by each digi
          The key is to have digital = sum %10, and and carry = Math.floor(sum/10) to next right node.
          Handle the case when l1, l2 with different length.
          
+Time complexity : O(max(m,n)). Assume that mm and nn represents the length of l1l1 and l2l2 respectively, the algorithm 
+above iterates at most max(m,n) times.    
+Space complexity : O(max(m,n)). The length of the new list is at most max(m,n)+1.
 
 var addTwoNumbers = function(l1, l2) {
     let l3 = new ListNode(0);         // create new node 
