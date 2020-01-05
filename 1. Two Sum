@@ -1,12 +1,39 @@
+
+
+
+
+Summary: use hash table to find target - num[i]. If found, return index. If not found, add to hash.
+
+solution 1: brute force   
+Time complexity : O(n^2) For each element, we try to find its complement by looping through the rest of array which takes O(n)O(n) time. 
+Space complexity : O(1)O(1).
+
 var twoSum = function(nums, target) {
-    let dict={};
+    for (var i = 0; i < nums.length; i++) {
+        for ( var j = i+1; j < nums.length; j++) {
+            if (nums[i] + nums[j] === target) {
+                return [i, j]
+            }
+        }
+    }
+    return null;
+};
+
+
+
+solution 2: hash table
+Time complexity : O(n). We traverse the list containing nn elements only once. Each look up in the table costs only O(1) time.
+Space complexity : O(n). The extra space required depends on the number of items stored in the hash table, which stores at most nn elements.
+
+var twoSum = function(nums, target) {
+    let hash={};
     let result=[];
     for (var i=0; i<nums.length; i++){
         let key = target - nums[i];
-        if (key in dict){
-            return [dict[key], i];
+        if (key in hash){
+            return [hash[key], i];
         }
-        dict[nums[i]]=i;
+        hash[nums[i]]=i;
     }
     return result;
 };
