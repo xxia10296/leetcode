@@ -1,15 +1,22 @@
-最清晰明了的解释 https://www.youtube.com/watch?v=L0xveBXriKc
+
+You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and 
+each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+
+Summary: create a new list l3, and new dummy node. Sum up l1 and l2 by each digit. 
+         The key is to have digital = sum %10, and and carry = Math.floor(sum/10) to next right node.
+         Handle the case when l1, l2 with different length.
+         
 
 var addTwoNumbers = function(l1, l2) {
-    let l3 = new ListNode(0); //儲存輸出的結果，因為list的指針要不斷往後移，因此用一個假節點方便操作
-    let result = l3; // 使用一個ListNode來儲存相加的結果
-    let sum,carry = 0; // carry用來處理進位
+    let l3 = new ListNode(0);         // create new node 
+    let result = l3;                  // to store the sum by each digit
+    let carry = 0;             
 
-    //當 list1, list2 都沒有值，而且carry也為0的時候才結束迴圈
+    // until list1, list2 have no value，and carry = 0 
     while(l1 || l2 || carry > 0){
-        sum = 0;
-        // list1與list2長度可能不同，分開處理
-        if(l1!== null){
+        let sum = 0;                  // place sum inside while loop because it clear by each digit summation
+        // handle the case when l1, l2 with different lengths
+        if(l1 !== null){
             sum += l1.val;
             l1 = l1.next;
         }
@@ -19,11 +26,12 @@ var addTwoNumbers = function(l1, l2) {
         }
         // 如果之前有進位，carry = 1；沒有的話carry = 0
         sum += carry;
-        l3.next = new ListNode(sum%10); //相加如果超過9，只能留下個位數放入結果list，十位數的地方進位
-        carry = Math.floor(sum/10);
-        // list指標向後
+        l3.next = new ListNode(sum%10); // digit = sum % 10
+        carry = Math.floor(sum/10);     // carry = sum / 10
         l3 = l3.next;
     }
-    // 因為第一個節點為假節點，跳過
     return result.next;
 }
+
+
+https://www.youtube.com/watch?v=L0xveBXriKc
