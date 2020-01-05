@@ -1,16 +1,35 @@
+
+
+Given a string, find the length of the longest substring without repeating characters.
+
+Summary: sliding window optimized.
+         Use two pointers hi & lo. Add each char to set if not repeated before and move hi pointer to right. 
+         if word[hi] already appear, then we delete that char and move lo pointer to right.
+         find max length of hi-lo
+
+Time complexity : O(n). Index hi will iterate n times till the end of string;
+Space complexity (Set) : O(min(m,n)). 
+
 var lengthOfLongestSubstring = function(s) {
-    if (s===null || s.length===0)   return 0;
-    var set = new Set();
-    var result=0;
-    var lo=0, hi=0;
-    while(hi<s.length){
-        if(!set.has(s.charAt(hi))) {
-            set.add(s.charAt(hi));
+    // edge case
+    if ( s.length === 0  || s === '' ) {
+        return 0;
+    }
+    
+    let lo = 0;
+    let hi = 0;
+    let result = 0;                      // create result to compare, since hi will go through till the end of string
+    var set = new Set();                 // create set to drop duplicate
+    
+    while ( hi < s.length) { .           // multiple string with different starting point.
+        if ( !set.has(s[hi])) {
+            set.add(s[hi]);
             hi++;
-            result=Math.max(result, hi-lo);
+            result = Math.max(result, hi-lo)
+            
         } else {
-            set.delete(s.charAt(lo));
-            lo++
+            set.delete(s[lo]);
+            lo++;
         }
     }
     return result;
