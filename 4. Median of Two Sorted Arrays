@@ -1,1 +1,60 @@
 
+
+
+There are two sorted arrays nums1 and nums2 of size m and n respectively.
+Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
+You may assume nums1 and nums2 cannot be both empty.
+
+Summary: 1. Use binary search on both array so it fulfills the time requirement of O(log (m+n));
+         2. 1) We set imin = 0; imax = len1; then start searching in [imin, imax];
+            2) inside the while loop, set i = Math.floor((imin+imax)/2); j = half - i; half = Math.floor((len1+len2+1)/2);
+            3) there're 3 situation we may encounter in while loop: 
+               - we find the perfect cut, which fulfills the requirment: nums1[i-1] <= nums2[j] && nums1[i] >= nums2[j-1];
+               - i is too larget, move it to left.  if ( i > imin && nums1[i-1] > nums2[j] ) 
+               - i is too small, move it to right.  if ( i < imax && nums1[i] < nums2[j-1] )
+            4) After we find the perfect cut, LEFT and Right, 
+               - if (len1+len2) is odd, we return LEFT;
+               - if (len1+len2) is even, we return (LEFT + RIGHT) / 2;
+   
+   
+Solution 1: binary search   
+time: O(log(min(m,n));
+space: O(1) constant storage for local variables;
+
+var findMedianSortedArrays = function(nums1, nums2) {
+    if (nums1.length > nums2.length) [nums1, nums2] = [nums2, nums1];
+    
+    const len1 = nums1.length;
+    const len2 = nums2.length;
+    let min = 0;
+    let max = len1;
+    let half = Math.floor((len1 + len2 + 1) / 2);
+    while (min <= max) {
+        const i = Math.floor((max + min) / 2);                // i is the cut in num1
+        const j = half - i;                                   // j is the cut in num2
+        if (i > min && nums1[i - 1] > nums2[j]) {
+            max = i - 1;                                      // i is too big, move to left
+        } else if (i < max && nums1[i] < nums2[j - 1]) {
+            min = i + 1;                                      // i is too small, move to right
+        } else {
+            let left,right;                                   // i is perfect cut
+            if (i === 0) left = nums2[j - 1];
+            else if (j === 0) left = nums1[i - 1];
+            else left = Math.max(nums1[i - 1], nums2[j - 1]);
+            if ( (len1 + len2) % 2 ===1 ) return left;
+            
+            if (i === len1) right = nums2[j];
+            else if (j === len2) right = nums1[i];
+            else right = Math.min(nums1[i], nums2[j]);
+            if ( (len1 + len2) % 2 === 0 ) return (left + right) / 2;
+        }
+    }
+}
+
+https://www.youtube.com/watch?v=ScCg9v921ns
+https://www.cnblogs.com/grandyang/p/4465932.html
+
+
+Solution 2: 
+
+
