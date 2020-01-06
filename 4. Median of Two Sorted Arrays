@@ -5,7 +5,7 @@ There are two sorted arrays nums1 and nums2 of size m and n respectively.
 Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
 You may assume nums1 and nums2 cannot be both empty.
 
-Summary: 1. Use binary search on both array so it fulfills the time requirement of O(log (m+n));
+Summary: 1. Use binary search on both array so it fulfills the time requirement of (less than) O(log (m+n));
          2. 1) We set imin = 0; imax = len1; then start searching in [imin, imax];
             2) inside the while loop, set i = Math.floor((imin+imax)/2); j = half - i; half = Math.floor((len1+len2+1)/2);
             3) there're 3 situation we may encounter in while loop: 
