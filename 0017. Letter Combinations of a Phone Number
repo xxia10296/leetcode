@@ -9,7 +9,7 @@ Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
 
 
 Summary: DFS Recursion tree. Apply a recursive call to return all substrings for each subdigit sequence. 
-time: O(4^n)   4:brach factor; n: depth.       
+time: O(4^n)   4:branch factor; n: depth.       
 space: O(n)
 
 var letterCombinations = function(digits) {
