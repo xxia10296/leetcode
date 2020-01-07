@@ -1,0 +1,76 @@
+
+
+Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
+
+Example 1:
+
+Input: "babad"
+Output: "bab"
+Note: "aba" is also a valid answer.
+Example 2:
+
+Input: "cbbd"
+Output: "bb"
+
+Solution 1: Dynamic programming   time and space, both  O(N^2)
+Firstly, a two-dimensional array dp, dp[j][i]==true, i s established to represent the substring s [j] [i] as a 
+palindrome string. In addition, if s[j][i] is a palindrome substring, then s[j+1][i-1] is also a palindrome substring.
+
+var longestPalindrome = function(s) {
+
+    let maxlen = 1,
+        start = 0,
+        dp = [];
+    for (let i = 0; i < s.length; i++) {
+        dp.push([])
+    }
+    for (let i = 0; i < s.length; i++) {
+        for (let j = 0; j < i; j++) {
+            if (s[i] === s[j]) {
+                if(i - j <= 2) {
+                    if(i - j +1 > maxlen) {
+                    start = j;
+                    maxlen = i - j + 1;
+                    }
+                    dp[j][i] = true;
+                }
+                else if(dp[j+1][i-1]) {
+                    if(i - j + 1 > maxlen) {
+                        start = j;
+                        maxlen = i - j + 1;
+                    }
+                    dp[j][i] = true;
+                }
+            }
+        }
+    }
+    return s.substr(start,maxlen);
+};
+
+Solution 2: Dynamic Programming
+
+var longestPalindrome = function(s) {
+    let palindrome = '';
+    
+    for (var i = 0; i < s.length; i++) {
+        // odd numbers, self-center
+        let len1 = getLongestPalindrome(s, i, i).length;
+        if (len1 > palindrome.length) {
+            palindrome = getLongestPalindrome(s, i, i);
+        }
+        // even numbers
+        let len2 = getLongestPalindrome(s, i, i + 1).length;
+        if (len2 > palindrome.length) {
+            palindrome = getLongestPalindrome(s, i, i + 1);
+        }
+    }    
+    return palindrome;
+};
+
+function getLongestPalindrome(s, l, r) {
+    while (l >= 0 && r < s.length && s[l] == s[r]) {
+        l--;
+        r++;
+    } 
+    return s.slice(l + 1, r)
+}
