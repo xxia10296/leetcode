@@ -1,0 +1,36 @@
+
+
+Write a function to find the longest common prefix string amongst an array of strings.
+
+If there is no common prefix, return an empty string "".
+
+Example 1:
+
+Input: ["flower","flow","flight"]
+Output: "fl"
+Example 2:
+
+Input: ["dog","racecar","car"]
+Output: ""
+Explanation: There is no common prefix among the input strings.
+
+
+Summary: vertical compare: i scans each word, j scans each character in each word.
+
+Time: O(S) , where S is the sum of all characters in all strings. 
+Space: O(1). We only used constant extra space.
+
+
+var longestCommonPrefix = function(strs) {
+    if (strs===null || strs.length===0){
+        return "";
+    }
+    for (j=0; j<strs[0].length; j++){
+        for (i=1; i<strs.length; i++){
+            if (j>=strs[i].length || strs[i][j] !== strs[0][j]){
+                return strs[i].substring(0, j)
+            }
+        }
+    }
+    return strs[0];
+}
