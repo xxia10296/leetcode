@@ -20,7 +20,6 @@ Summary: - need to take care of duplicates, so we include the while loop
 
 Time: O(n**2)
 Space: O(1)
-https://www.youtube.com/watch?time_continue=309&v=jXZDUdHRbhY&feature=emb_title
 
 var threeSum = function(nums) {
 	let result = [];
@@ -39,7 +38,7 @@ var threeSum = function(nums) {
 		for (let j = i + 1, k = nums.length - 1; j < k;) {
 			if (nums[i] + nums[j] + nums[k] === 0) {
 				rtn.push([nums[i], nums[j], nums[k]]);
-                j++;
+                                        j++;
 				        k--;
 
 				while (j < k && nums[j] == nums[j - 1]) {
@@ -58,3 +57,6 @@ var threeSum = function(nums) {
 	}
 	return result;
 };
+
+https://www.youtube.com/watch?time_continue=309&v=jXZDUdHRbhY&feature=emb_title
+
