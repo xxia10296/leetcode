@@ -1,0 +1,38 @@
+
+
+
+Solution 1: brute force
+time: O(n*n); space: O(1)
+
+var maxArea = function(height) {
+    var MaxArea=0;
+    for(var i=0;i<height.length;i++){
+        for(var j=i+1;j<height.length;j++){
+            var temp=(j-i)* Math.min(height[j], height[i]);
+            if(temp>MaxArea){
+                MaxArea=temp;
+            }
+        } 
+    }
+    return MaxArea;
+};
+
+Solution 2：
+Summary: Start from i = 0 and j = last. Keep the higher side, and move the other side. Update the maxArea until i j hit together.
+time: O(n); space O(1);
+
+var maxArea = function(height) {
+    var area=0;
+    var l=0;
+    var r=height.length-1
+    while(l<r){
+        var h=Math.min(height[l], height[r]);
+        area=Math.max(area, h*(r-l));
+        if(height[l]<height[r]){
+            l++
+        } else{
+            r--;
+        }
+    }
+    return area;
+};
