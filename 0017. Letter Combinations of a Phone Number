@@ -8,5 +8,39 @@ Input: "23"
 Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
 
 
+Summary: DFS Recursion tree. Apply a recursive call to return all substrings for each subdigit sequence. 
+time: O(4^n)   4:brach factor; n: depth.       
+space: O(n)
 
+var letterCombinations = function(digits) {
+    if(digits.length === 0) return []
+    let hash = {
+        "2": "abc",
+        "3": "def",
+        "4": "ghi",
+        "5": "jkl",
+        "6": "mno",
+        "7": "pqrs",
+        "8": "tuv",
+        "9": "wxyz"
+    }
+    let result = []
+    letterComboHelper(result,digits, hash, 0, "")
+    return result
+    
+};
+
+function letterComboHelper(result,digits,hash, idx, combo){
+    if(combo.length === digits.length){         // Once our combo is the same length as the number of digits
+        result.push(combo)                      // save all combo to result and we are done.
+        return
+    }
+    let letters = hash[digits[idx]]
+    for(let i = 0; i < letters.length; i++){         // loop through leading characters
+        let currentLetter = letters[i]               // get all the possible combinations for the rest of the numbers
+        letterComboHelper(result,digits,hash, idx + 1, combo + currentLetter )         // append each combination to the leading character
+    }
+}
+
+https://www.youtube.com/watch?v=uMmFXWs_ZMY
 
