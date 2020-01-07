@@ -19,10 +19,10 @@ Assume we are dealing with an environment which could only store integers within
 [−231,  231 − 1]. For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows.
 
 Summary:
--) Handle negative numbers, absolute value the input, and handle negative at the end
--) Repeatedly extract the last digit and get it to the front of the new number
--) x % 10 gives us the last digit of a number (ones place)
--) x  / 10 gives us the rest of the number (exclude the ones place)
+- Handle negative numbers, absolute value the input, and handle negative at the end
+- Repeatedly extract the last digit and get it to the front of the new number
+- x % 10 gives us the last digit of a number (ones place)
+- x  / 10 gives us the rest of the number (exclude the ones place)
 Let n be the number of digits in the input number:
 Time: O(n) Linear
 Space: O(1) Constant
