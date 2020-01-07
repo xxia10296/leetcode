@@ -12,7 +12,7 @@ Solution 1: DFS
 
 var isMatch = function(str, pattern) {
     // if pattern and string are empty, it's a match, return true otherwise return false
-    if (!pattern) return !str;
+    if (!pattern) return false;
 
     // check if the first character in pattern and str match
     // or if the first character of pattern is the . wild card
