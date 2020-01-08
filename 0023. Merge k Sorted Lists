@@ -1,0 +1,71 @@
+
+
+Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
+
+Example:
+
+Input:
+[
+  1->4->5,
+  1->3->4,
+  2->6
+]
+Output: 1->1->2->3->4->4->5->6
+
+
+Solution 1: 
+Summary: 
+   min heap(works with array as well). Insert the head of all lists into a priority queue(min heap).js没有minheap
+   while q is not empty
+   pop the top of the q
+   insert it into the answer list
+   if T.next exits, push T.next into the q
+   这个难点是在于linkedlist有pointer,所以把数字从heap出来之后，可以把pointer直接弄到.next身上。但array不行，所以用pq (head)一定要
+   记录数字是来自哪个数组。
+   time: O(nklogk)    space: O(n)+O(k)
+k=#ofArrays, n=#ofElements; for all n elements, we insert&remove each element into min heap, that requires 2*n*(logk) time.
+
+Solution 2：
+Summary: 
+   use 3 pointers.compare every iteration and add the smallest to the result. 
+   time: O(k*n)    space: O(k)
+
+    //use DC/merge sort to solve: constant space O(k)
+    //create a mergeTwo function simiar to question#21
+    //then iterate each two lists from input until only 1 linkedList left
+function mergeLists(a, b) {
+    const dummy = new ListNode(0);
+    let temp = dummy;
+     while (a !== null && b !== null) {
+         if (a.val < b.val) {
+             temp.next = a;
+             a = a.next;
+         } else {
+             temp.next = b;
+             b = b.next;
+         }
+         temp = temp.next;
+     }
+    if (a !== null) {
+        temp.next = a;
+    }
+    if (b !== null) {
+        temp.next = b;
+    }
+    return dummy.next;
+}
+
+var mergeKLists = function(lists) {
+    if (lists.length === 0 ) {
+        return null;
+    }
+    // two two
+    // priority queue
+    while (lists.length > 1) {
+        let a = lists.shift();       // the head will contains the "less" length list
+        let b = lists.shift();       // acturally, we can use the linkedlist to replace it, the while loop will be the while( list.header.next !== null || lists.length > 0)
+        const h = mergeLists(a, b);
+        lists.push(h);
+    }
+    return lists[0];
+};
