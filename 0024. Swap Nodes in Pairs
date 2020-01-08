@@ -1,0 +1,52 @@
+
+
+Given a linked list, swap every two adjacent nodes and return its head.
+You may not modify the values in the list's nodes, only nodes itself may be changed.
+Example:
+Given 1->2->3->4, you should return the list as 2->1->4->3.
+
+
+https://leetcode.wang/leetCode-24-Swap-Nodes-in-Pairs.html
+
+solution 1: 
+Summary: 
+Time: 
+Space: 
+1---->2---->3---->4
+head temp ( s w a p ) to become 2->1->4->3, temp.next=head;  head.next=swap(head.next.next); and last temp.next=head;
+var swapPairs = function(head) {
+  var swap=function(head){
+    if(!head || !head.next){
+      return head;
+    }
+    var temp=head.next;
+    head.next=swap(head.next.next);
+    temp.next=head;
+    return temp;
+  }
+  return swap(head);
+}
+
+
+Solution 2:
+Summary: 
+Time: O(n)
+Space: O(1)
+var swapPairs = function(head) {
+    if( head===null || head.next===null) {
+        return head;
+    }
+    let dummy = new ListNode(0);
+    dummy.next=head;
+    let pre=dummy;
+    let cur=head;
+    while (cur !==null && cur.next !==null) {
+        let cnext=cur.next;
+        cur.next=cnext.next;
+        cnext.next=cur;
+        pre.next=cnext;
+        pre=cur;
+        cur=cur.next;
+    }
+    return dummy.next;
+}
