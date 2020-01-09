@@ -14,7 +14,7 @@ Note that the order of those five elements can be arbitrary.
 It doesn't matter what values are set beyond the returned length.
 
 
-Summary: - the key is no extce to be used. "by modifying the input array in-place" 
+Summary: - the key is no extra space to be used. "by modifying the input array in-place" 
          - 2 pointers, (i starts at 0; j starts at the end). if i === val, then push it to the end. return j+1 as length
          - If nums[i] === val, update nums[i] to nums[j], push that value to the end, and j--,
          - If nums[i] !== val, keep moving i++;
