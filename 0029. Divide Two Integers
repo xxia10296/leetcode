@@ -1,0 +1,59 @@
+
+
+Given two integers dividend and divisor, divide two integers without using multiplication, division and mod operator.
+Return the quotient after dividing dividend by divisor.
+The integer division should truncate toward zero.
+Example 1:
+Input: dividend = 10, divisor = 3
+Output: 3
+Example 2:
+Input: dividend = 7, divisor = -3
+Output: -2
+Note:
+Both dividend and divisor will be 32-bit signed integers.
+The divisor will never be 0.
+Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: 
+[−231,  231 − 1]. For the purpose of this problem, assume that your function returns 231 − 1 when the division result 
+overflows.
+
+Summary: double the divisor by shifting left 1 bit.
+举例：257/3
+先用3* 2^n<257; 得出n=6;  3*2^6=192; 然后257-192=65;
+再找3*2^n<65; 得出n=4; 3*2^4=48; 然后65-28=17；
+再找3*2^n<17; 得出n=2; 3*2^2=12; 然后17-12=5;
+再找3*2^n<5; 得出n=0; 3*2^0=3; 然后5-3=2； 这里就停止了while loop 因为2<3(devisor);
+结果就是 2^6 + 2^4 + 2^2 + 2^0 = 85;  85就是结果。
+
+var divide = function(dividend, divisor) {
+    if (dividend == -2147483648 && divisor == -1) {
+        return 2147483647;
+    }
+    //console.log(Math.pow(-2, 31))
+    let sign=1;
+    if (dividend<0 && divisor>0 || dividend>0 && divisor<0) {
+        sign=-1;
+    }
+    dividend = Math.abs(dividend);
+    divisor = Math.abs(divisor);
+
+    let ans = 0;
+
+    while (dividend >= divisor) {
+        let count = 1;
+        let double = divisor;
+
+        while (double <= (dividend >> 1)) {
+            double <<= 1;
+            count <<= 1;
+        }
+        ans += count;
+        dividend -= double;
+    }
+    return sign * ans;
+};
+
+https://www.youtube.com/watch?v=p-KFccIseJE
+
+
+
+
