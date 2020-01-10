@@ -1,0 +1,45 @@
+
+
+32. Longest Valid Parentheses
+Given a string containing just the characters '(' and ')', find the length of the longest valid (well-formed) parentheses 
+substring.
+Example 1:
+Input: "(()"
+Output: 2
+Explanation: The longest valid parentheses substring is "()"
+Example 2:
+Input: ")()())"
+Output: 4
+Explanation: The longest valid parentheses substring is "()()"
+
+Summary: - Use stack and label index. Pop out the valid ones, and the index of the ones left in stack, can tell us how long
+           each string length can be.    https://www.youtube.com/watch?v=r0-zx5ejdq0
+
+    for example:              ( ) ( ( ) ) ) ( ) ) ( ) 
+    step1:  label index:      0 1 2 3 4 5 6 7 8 9 10 11
+    step2:  left in stack:                6     9       (because not valid)
+    step3:  longest valid:    YESYESYESYE    no     no
+    step4:  stack(begins -1) [-1, 6 , 9        ]        Math.max(i-curTop, max) . curTop is right after poping out, update max.
+    
+    Place them in stack, if valid, then pop out. Only index = 6 and index = 9 are remain in the stack. This tells us how long
+    each string can be.
+    
+Time: O(n)
+Space: O(n) we push and pop everything into stack
+
+var longestValidParentheses = function(s) {
+    const stack = [-1] // initialize stack with -1 to make sure we include 0 in answer
+    let max = 0;
+    
+    for ( var i = 0; i < s.length; i++) {
+        var top = stack[stack.length-1];    // we grab the top of stack
+        if (s[top] === '(' && s[i] === ')') {   // if top is (, and current is ), 
+            stack.pop();
+            var newTop = stack[stack.length-1];
+            max = Math.max(i-newTop, max);   // i-newTop is the length of valid str
+        } else {
+            stack.push(i)
+        } 
+    }
+    return max
+};
