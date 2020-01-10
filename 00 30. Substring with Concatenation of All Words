@@ -1,0 +1,65 @@
+
+
+30. Substring with Concatenation of All Words
+You are given a string, s, and a list of words, words, that are all of the same length. Find all starting indices of 
+substring(s) in s that is a concatenation of each word in words exactly once and without any intervening characters.
+Example 1:
+Input:
+  s = "barfoothefoobarman",
+  words = ["foo","bar"]
+Output: [0,9]
+Explanation: Substrings starting at index 0 and 9 are "barfoo" and "foobar" respectively.
+The output order does not matter, returning [9,0] is fine too.
+Example 2:
+Input:
+  s = "wordgoodgoodgoodbestword",
+  words = ["word","good","best","word"]
+Output: []
+
+Summary: - Use 2 hashmap to store key(word) and value(times that appear)
+         - the range of i, which i scans from begining till the end.    i=0; i < s.length - (n*m) + 1; 
+         - where n number of words, and m is length of word
+         - add all words to m1; scan m2 every n elemets, to find if m1[t] === m2[t];
+         - if m2[t] > m1[t], break;  if (
+
+time: assume str has n length, and words has m words. then O(n*m)
+space: Use 2 hashmaps to store m words. then O(m)
+https://leetcode.wang/leetCode-30-Substring-with-Concatenation-of-All-Words.html
+
+var findSubstring = function(s, words) {
+    let res=[];
+    if(s.length==0 || words.length==0) return res;
+    let n=words.length, m=words[0].length;   // n*m=total length of words str
+    let m1={};
+                                           // 将所有单词存入hash
+    for(let w of words){  
+        if (m1[w] === undefined) {
+            m1[w] = 1;
+        } else {
+            m1[w] ++;
+        }
+                                           //m1[w]?m1[w]++:(m1[w]=1)
+    }
+
+    for(let i=0;i<=s.length-n*m;i++){
+        let m2={};
+        let j=0;
+        for(j=0;j<n;j++){
+                                          // 获取长度为m的字串t
+            let t=s.substr(i+j*m,m);
+                                          // 如果m1中不存在则跳出循环
+            if(!m1[t]) break;
+                                          // 如果m1中存在字串t,则存入m2
+            if (m2[t] === undefined) {
+                m2[t] = 1;
+            } else {
+                m2[t] ++;
+            }
+                                           //m2[t]?m2[t]++:(m2[t]=1);
+                                          // 如果m2中出现的单词次数比m1多，跳出循环
+            if(m2[t]>m1[t]) break;
+        }
+        if(j==n) res.push(i);
+    }
+    return res;
+};
