@@ -1,12 +1,14 @@
 
 
+0010. Regular Expression Matching
 Given an input string (s) and a pattern (p), implement regular expression matching with support for '.' and '*'.
 
 '.' Matches any single character.
 '*' Matches zero or more of the preceding element.
 The matching should cover the entire input string (not partial).
 
-
+Summary: 
+https://leetcode.wang/leetCode-10-Regular-Expression-Matching.html
 
 Solution 1: DFS
 
@@ -78,4 +80,5 @@ pj !== '*'
 pj === '*'
 匹配字符出现'*'，则需要去比较 pj-1 与 si 是否想等
 因为'*'也可以匹配0次，所以如果Pj-2匹配Si成功，那么Pj匹配Si也必然成功
+
 https://www.youtube.com/watch?v=qza1UKNHAys
