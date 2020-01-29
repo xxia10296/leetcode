@@ -1,2 +1,2 @@
-2020/01/29
-# Daily goal: 2-3 leetcode problems
+# Hi, this is my journey to leetcode starting from 2019 Oct. 
+## Daily goal: 2-5 problems
