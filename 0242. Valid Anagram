@@ -1,0 +1,49 @@
+
+
+Given two strings s and t , write a function to determine if t is an anagram of s.
+
+Example 1:
+
+Input: s = "anagram", t = "nagaram"
+Output: true
+Example 2:
+
+Input: s = "rat", t = "car"
+Output: false
+Note:
+You may assume the string contains only lowercase alphabets.
+
+Follow up:
+What if the inputs contain unicode characters? How would you adapt your solution to such case?
+
+// var isAnagram = function(s, t) {
+//     if (s.length !== t.length)  { return false }
+//     var hash = {};
+//     for (let c of s) {
+//         hash[c] = (hash[c] || 0) + 1;
+//     }
+//     for (let c of t) {
+//         if (!hash[c]) { return false }
+//         hash[c]--;
+//     }
+//     return true;
+// };
+
+var isAnagram = function(s, t) {
+    if (t.length !== s.length) return false;
+    const counts = [];
+    for (let c of s) {
+        let i = c.charCodeAt(0) - 'a'.charCodeAt(0);
+        counts[i] = (counts[i] || 0) + 1;
+    }
+    for (let c of t) {
+        let i = c.charCodeAt(0) - 'a'.charCodeAt(0);
+        if (!counts[i]) return false;
+        counts[i]--;
+    }
+    return true;
+};
+
+// var isAnagram = function(s, t) {
+//     return s.split('').sort().join('') == t.split('').sort().join('')
+// }
