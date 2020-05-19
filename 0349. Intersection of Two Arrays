@@ -1,0 +1,73 @@
+
+
+Given two arrays, write a function to compute their intersection.
+
+Example 1:
+Input: nums1 = [1,2,2,1], nums2 = [2,2]
+Output: [2]
+Example 2:
+Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+Output: [9,4]
+Note:
+Each element in the result must be unique.
+The result can be in any order.
+
+// var intersection = function(nums1, nums2) {
+//     let set1 = new Set(nums1);
+//     let set2 = new Set(nums2);
+//     let result = [];
+//     for (let n of set1) {
+//         if (set2.has(n)) {
+//             result.push(n)
+//         }
+//     }
+//     return result;
+// }
+
+
+// var intersection = function(nums1, nums2) {
+//     let hash = new Map();
+//     let result = [];
+//     for (let n of nums1) {
+//         hash[n] = (hash[n] || 0 ) + 1
+//     };
+    
+//     for (let n of nums2) {
+//         if (hash[n] && result.indexOf(n) < 0) {   
+//             result.push(n)
+//         }
+//     }
+//     return result;
+// };
+
+// var intersection = function(nums1, nums2) {
+//     let result = [];
+    
+//     let binarySearch = function(arr, target) {
+//         let lo = 0, hi = arr.length - 1;
+//         while (lo <= hi) {
+//             let mid = lo + Math.floor((hi-lo)/2);
+//             if (target === arr[mid]) { return true; }
+//             if (target < arr[mid]) { hi = mid -1; }
+//             if (target > arr[mid]) { lo = mid + 1; }
+            
+//         }
+//         return false;
+//     }
+//     if (nums1.length < nums2.length) {
+//         nums1 = nums1.sort((a, b) => a - b );
+//         for (let n of nums2) {
+//             if (binarySearch(nums1, n) && result.indexOf(n) < 0) {
+//                 result.push(n)
+//             }
+//         } 
+//     } else {
+//         nums2 = nums2.sort((a, b) => a-b);
+//         for (let n of nums1) {
+//             if (binarySearch(nums2, n) && result.indexOf(n) < 0) {
+//                 result.push(n)
+//             }
+//         }
+//     }
+//     return result;
+// }
