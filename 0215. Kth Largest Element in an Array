@@ -1,0 +1,44 @@
+Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order, not the kth distinct element.
+
+Example 1:
+
+Input: [3,2,1,5,6,4] and k = 2
+Output: 5
+Example 2:
+
+Input: [3,2,3,1,2,4,5,5,6] and k = 4
+Output: 4
+Note:
+You may assume k is always valid, 1 ≤ k ≤ array's length.
+
+var findKthLargest = function(nums, k) {
+    let result;
+    var quickSort = function(start, end) {
+        if (start > end) return;
+        let pivot = nums[start];
+        let insertAt = start+1;
+        
+        for (let i = start+1; i <= end; i++) {
+            if (nums[i] >= pivot) {
+                swap(i, insertAt);
+                insertAt++;
+            }
+        }
+        swap(start, insertAt-1);
+        if (insertAt-1 === k-1) {
+            result = pivot;
+            return;
+        } else if (insertAt-1 > k-1) {
+            quickSort(start, insertAt-2);
+        } else if (insertAt-1 < k-1) {
+            quickSort(insertAt, end)
+        }
+    }
+    var swap = function(i, j) {
+        let tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+    quickSort(0, nums.length-1);
+    return result;
+};
