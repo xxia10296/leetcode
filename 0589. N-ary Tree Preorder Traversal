@@ -1,0 +1,38 @@
+Given an n-ary tree, return the preorder traversal of its nodes' values.
+
+Nary-Tree input serialization is represented in their level order traversal, each group of children is separated by the null value (See examples).
+
+Follow up:
+
+Recursive solution is trivial, could you do it iteratively?
+
+var preorder = function(root) {
+    let result = [];
+    if (root === null) return result;
+    const traverse = function(node) {
+        if (node === null) return;
+        result.push(node.val);
+        for (let child of node.children) {
+            traverse(child);
+        }
+    }
+    traverse(root);
+    return result;
+}
+
+
+// var preorder = function(root) {
+//     if (root === null) return [];
+//     let result = [], stack = [root];
+    
+//     while (stack.length) {
+//         let cur = stack.pop();
+//         result.push(cur.val);
+//         if (cur.children) {
+//             for (let i = cur.children.length-1; i>=0; i--) {
+//                 stack.push(cur.children[i]);
+//             }
+//         }
+//     }
+//     return result;  
+// };
