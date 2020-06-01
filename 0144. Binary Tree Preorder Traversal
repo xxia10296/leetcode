@@ -1,0 +1,13 @@
+var preorderTraversal = function(root) {
+    let result = [], stack = [];
+    if (root == null) { return []; };
+    stack.push(root);
+    
+    while (stack.length > 0){
+        let cur = stack.pop();
+        result.push(cur.val)
+    if (cur.right) stack.push(cur.right);
+    if (cur.left) stack.push(cur.left);    
+    }
+    return result
+}
