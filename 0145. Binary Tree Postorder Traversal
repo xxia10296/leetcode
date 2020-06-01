@@ -1,0 +1,14 @@
+var postorderTraversal = function(root) {
+    let result = [], stack = [];
+    let cur = root;
+    while (stack.length > 0 || cur !== null) {
+        while (cur) {
+            stack.push(cur);
+            result.push(cur.val);
+            cur = cur.right;
+        }
+        cur = stack.pop();
+        cur = cur.left;
+    }
+    return result.reverse();
+};
