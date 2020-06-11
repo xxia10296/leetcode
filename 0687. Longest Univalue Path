@@ -1,0 +1,53 @@
+Given a binary tree, find the length of the longest path where each node in the path has the same value. This path may or may not pass through the root.
+The length of path between two nodes is represented by the number of edges between them.
+
+Example 1:
+Input:
+              5
+             / \
+            4   5
+           / \   \
+          1   1   5
+Output: 2
+
+
+
+// very hard.....why easy?
+var longestUnivaluePath = function(root) {
+    if (!root) return 0;
+    // 3 cases: only left/only right/connected left & right
+    return Math.max(longestUnivaluePath(root.left), 
+                    longestUnivaluePath(root.right), 
+                    singleLongest(root.left, root.val) + singleLongest(root.right, root.val));
+    
+    function singleLongest(root, val) {
+        if (!root || root.val !== val) {
+            return 0
+        } else {
+            return Math.max(singleLongest(root.left, root.val), singleLongest(root.right, root.val)) + 1;   
+        };
+    };
+};
+
+// var longestUnivaluePath = function(root) {
+//     if (!root) return 0;
+//     let res = 0;
+//     function dfs(root) {
+//         if (!root) return 0;
+//         let left = dfs(root.left);
+//         let right = dfs(root.right);
+        
+//         let leftCount = 0, rightCount = 0; 
+        
+//         if (root.left && root.left.val === root.val) leftCount = left+1;
+//         if (root.right && root.right.val === root.val) rightCount = right+1;
+        
+//         // update res with (left+right) when left.val === right.val
+//         // only return max value in the dfs and send it to parent
+//         // because the only the longer one can be used. 
+//         res = Math.max(res, leftCount+rightCount);
+//         return Math.max(rightCount, leftCount);
+//     }
+//     dfs(root);
+//     return res;
+// };
