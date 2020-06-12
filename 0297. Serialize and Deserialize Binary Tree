@@ -1,0 +1,91 @@
+Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.
+
+Design an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a binary tree can be serialized to a string and this string can be deserialized to the original tree structure.
+
+
+var serialize = function(root) {
+    let res = [];
+    var dfs = function(root) {
+        if (!root) {
+            res.push(null);
+        } else {
+            res.push(root.val);
+            dfs(root.left);
+            dfs(root.right);
+        }
+    }
+    dfs(root);
+    return res;
+};
+
+var deserialize = function(data) {
+    var dfs = function() {
+        let node = data.shift();
+        if (node === null) {
+            return null;
+        } else {
+            let root = new TreeNode(node);
+            root.left = dfs();
+            root.right = dfs();
+            return root;
+        }
+    }
+    return dfs();
+};
+
+
+
+// var serialize = function(root) {
+//     if (!root) return 'null';
+//     return root.val + ',' + serialize(root.left) + ',' + serialize(root.right);
+// };
+
+// var deserialize = function(data) {
+//     let queue = data.split(',');
+//     var dfs = function() {
+//         let node = queue.shift();
+//         if (node === 'null') {
+//             return null;
+//         } else {
+//             let root = new TreeNode(node);
+//             root.left = dfs();
+//             root.right = dfs();
+//             return root;
+//         }
+//     }
+//     return dfs();  
+// }
+
+
+// pre-order
+// var serialize = function(root) {
+//     let res = '';
+//     var dfs = function(root) {
+//         if (!root) {
+//             res += 'null,';
+//         } else {
+//             res += root.val + ',';
+//             dfs(root.left);
+//             dfs(root.right);
+//         }
+//     }
+//     dfs(root);
+//     return '[' + res.substr(0, res.length-1) +']';
+// };
+
+
+// var deserialize = function(data) {
+//     let nodes = data.substr(1, data.length-2).split(',');
+//     var dfs = function() {
+//         let node = nodes.shift();
+//         if (node === 'null') {
+//             return null;
+//         } else {
+//             let root = new TreeNode(Number(node));
+//             root.left = dfs();
+//             root.right = dfs();
+//             return root;
+//         }
+//     }
+//     return dfs();
+// };
