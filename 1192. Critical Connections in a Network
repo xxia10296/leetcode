@@ -1,0 +1,48 @@
+There are n servers numbered from 0 to n-1 connected by undirected server-to-server connections forming a network where connections[i] = [a, b] represents a connection between servers a and b. Any server can reach any other server directly or indirectly through the network.
+A critical connection is a connection that, if removed, will make some server unable to reach some other server.
+Return all critical connections in the network in any order.
+
+
+// Use Tarjan's algorithm to identify bridge (bridge from graph theory: a bridge is an edge of graph whose deletion increases its numbers of connected elements);
+// O(n^2) : break each edge at a time then traverse;
+// improved O(V+E) : update low-linked value in one pass (the smallest node id reachable from that node doing a DFS)
+// compare ids(at) XX low-link(to); low-link(to) will decrease to id(to) if more than 1 route can reach(not critical)
+// if (!visited) low-linked value is the min of low-link(at) & low-link(to) 
+// if (visited) low-linked is the min of low-link(at) & ids(to)
+// for any undirected graph, only traverse when to !== parent
+
+var criticalConnections = function(n, connections) {
+    let map = new Map();
+    for ([a, b] of connections) {
+        if (map.has(a)) map.get(a).push(b); 
+        else map.set(a, [b]); 
+        if (map.has(b)) map.get(b).push(a);
+        else  map.set(b, [a]);
+    };
+    
+    let critical = [];
+    let id = 0, ids = new Array(n).fill(0), lowLink = new Array(n).fill(0), visited = new Array(n).fill(false);
+    var tarjan = function(at, parent) {
+        visited[at] = true;
+        id++;
+        lowLink[at] = ids[at] = id;
+        
+        for (let to of map.get(at)) {
+            if (to === parent) continue;
+            if (!visited[to]) {
+                tarjan(to, at);
+                lowLink[at] = Math.min(lowLink[at], lowLink[to]);
+                if (lowLink[to] > ids[at]) critical.push([at, to]);
+            } else {
+                lowLink[at] = Math.min(lowLink[at], ids[to]);
+            };
+        };
+    };
+    
+    for (let i = 0; i < n; i++) {
+        if (!visited[i]) tarjan(0, null);
+    };
+    return critical;
+};
+
+
