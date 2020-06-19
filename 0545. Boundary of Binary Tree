@@ -1,0 +1,62 @@
+Example 2
+
+Input:
+    ____1_____
+   /          \
+  2            3
+ / \          / 
+4   5        6   
+   / \      / \
+  7   8    9  10  
+       
+Ouput:
+[1,2,4,7,8,9,10,6,3]
+
+Explanation:
+The left boundary are node 1,2,4. (4 is the left-most node according to definition)
+The leaves are node 4,7,8,9,10.
+The right boundary are node 1,3,6,10. (10 is the right-most node).
+So order them in anti-clockwise without duplicate nodes we have [1,2,4,7,8,9,10,6,3].
+
+
+var boundaryOfBinaryTree = function(root) {
+    if (!root) return [];
+    let res = [root.val];
+    
+    var printLeft = function(root) {
+        if (!root) return;
+        if (root.left) {
+            res.push(root.val);
+            printLeft(root.left);
+        } else if (root.right) {
+            res.push(root.val);
+            printLeft(root.right);
+        };
+    };
+    
+    var printLeaf = function(root) {
+        if (!root) return;
+        printLeaf(root.left);
+        if (!root.left && !root.right) {
+            res.push(root.val);
+        };
+        printLeaf(root.right);
+    };
+    
+    var printRight = function(root) {
+        if (!root) return;
+        if (root.right) {
+            printRight(root.right);
+            res.push(root.val);
+        } else if (root.left) {
+            printRight(root.left);
+            res.push(root.val);
+        }
+    };
+    printLeft(root.left);
+    printLeaf(root.left);
+    printLeaf(root.right);
+    printRight(root.right);
+    return res;
+    
+};
