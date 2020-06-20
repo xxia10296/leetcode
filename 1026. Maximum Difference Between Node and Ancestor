@@ -1,0 +1,33 @@
+Given the root of a binary tree, find the maximum value V for which there exists different nodes A and B where V = |A.val - B.val| and A is an ancestor of B.
+
+(A node A is an ancestor of B if either: any child of A is equal to B, or any child of A is an ancestor of B.)
+
+
+var maxAncestorDiff = function(root) {
+    if (!root) return;
+    let diff = -Infinity;
+    var dfs = function(root, max, min) {
+        if (!root) return;
+        max = Math.max(max, root.val);
+        min = Math.min(min, root.val);
+        diff = Math.max(diff, max-min);
+        dfs(root.left, max, min);
+        dfs(root.right, max, min);
+    };
+    dfs(root, root.val, root.val);
+    return diff;
+};
+
+
+// var maxAncestorDiff = function(root) {
+//     if (!root) return 0;
+    
+//     var dfs = function(root, max, min) {
+//         if (!root) return 0;
+//         let diff = Math.max(Math.abs(max-root.val), Math.abs(root.val-min));
+//         max = Math.max(max, root.val);
+//         min = Math.min(min, root.val);
+//         return Math.max(diff, dfs(root.left, max, min), dfs(root.right, max, min));
+//     };
+//     return dfs(root, root.val, root.val);
+// };
