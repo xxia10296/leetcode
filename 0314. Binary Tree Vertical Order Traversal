@@ -1,0 +1,48 @@
+Given a binary tree, return the vertical order traversal of its nodes' values. (ie, from top to bottom, column by column).
+If two nodes are in the same row and column, the order should be from left to right.
+Examples 1:
+Input: [3,9,20,null,null,15,7]
+   3
+  /\
+ /  \
+ 9  20
+    /\
+   /  \
+  15   7 
+Output:
+[
+  [9],
+  [3,15],
+  [20],
+  [7]
+]
+
+
+
+var verticalOrder = function(root) {
+    let res = [], map = {};
+    if (!root) return res;
+    let queue = [[0, root]];
+    let min = Infinity, max = -Infinity;
+    
+    while (queue.length) {
+        let cur = queue.shift();
+        let col = cur[0];
+        let node = cur[1];        
+        if (!map[col]) {
+            map[col] = [node.val];
+        } else {
+            map[col].push(node.val);
+        };
+        min = Math.min(min, col);
+        max = Math.max(max, col);
+        if (node.left) queue.push([col-1, node.left]);
+        if (node.right) queue.push([col+1, node.right]);
+    };
+    
+   // Object.keys(map).sort((a,b)=>a-b).forEach((a) => res.push(map[a]));    
+    for (let i = min; i <= max; i++) {
+        res.push(map[i]);
+    };
+    return res;
+};
