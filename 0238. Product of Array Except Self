@@ -1,0 +1,18 @@
+var productExceptSelf = function(nums) {
+    let N = nums.length;
+    let left = new Array(N-1);
+    let right = new Array(N-1);
+    let res = new Array(N-1);
+    left[0] = 1;
+    right[N-1] = 1;
+    for (let i = 1; i < N; i++) {
+        left[i] = left[i-1]*nums[i-1];
+    };
+    for (let i = N-2; i >= 0; i--) {
+        right[i] = right[i+1]*nums[i+1];
+    };
+    for (let i = 0; i < N; i++) {
+        res[i] = left[i]*right[i];
+    };
+    return res;
+};
