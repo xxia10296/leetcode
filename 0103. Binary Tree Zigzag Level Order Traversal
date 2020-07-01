@@ -1,0 +1,18 @@
+var zigzagLevelOrder = function(root) {
+    let res = [];
+    var bfs = function(root, depth) {
+        if (!root) return;
+        if (depth === res.length) {
+            res.push([]);
+        };
+        if (depth %2 === 0) {
+            res[depth].push(root.val);
+        } else {
+            res[depth].unshift(root.val);
+        };
+        bfs(root.left, depth+1);
+        bfs(root.right, depth+1);
+    };
+    bfs(root, 0);
+    return res;
+};
