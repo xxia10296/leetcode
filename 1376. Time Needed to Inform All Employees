@@ -7,20 +7,21 @@ var numOfMinutes = function(n, headID, manager, informTime) {
             map.get(manager[i]).push(i);
         };
     };
+    
     let queue = [[headID, 0]];
     let time = 0;
+    
     while (queue.length) {
         let size = queue.length;
         for (let i = 0; i < size; i++) {
             let cur = queue.shift();
-            time = Math.max(time, cur[1]);
-            
             if (map.has(cur[0])) {
                 for (let each of map.get(cur[0])) {
-                    queue.push([each, informTime[cur[0]]+time]);
+                    time = Math.max(time, cur[1]+informTime[cur[0]]);
+                    queue.push([each, cur[1]+informTime[cur[0]]])
                 }
             }
-        }
-    }
+        };
+    };
     return time;
 };
