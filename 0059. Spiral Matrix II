@@ -1,0 +1,40 @@
+Given a positive integer n, generate a square matrix filled with elements from 1 to n2 in spiral order.
+
+Example:
+
+Input: 3
+Output:
+[
+ [ 1, 2, 3 ],
+ [ 8, 9, 4 ],
+ [ 7, 6, 5 ]
+]
+
+var generateMatrix = function(n) {
+    let matrix = new Array(n).fill(null).map(val => new Array(n).fill(null));
+    let val = 1;
+    var spiralWalker = function(startRow, endRow, startCol, endCol) {
+        if (startRow > endRow || startCol > endCol) return;
+        for (let i = startCol; i <= endCol; i++) {
+            matrix[startRow][i] = val;
+            val++;
+        };
+        for (let i = startRow+1; i <= endRow; i++) {
+            matrix[i][endCol] = val;
+            val++;
+        };
+        for (let i = endCol-1; i >= startCol; i--) {
+            if (startRow === endRow) break;
+            matrix[endRow][i] = val;
+            val++;
+        };
+        for (let i = endRow-1; i >= startRow+1; i--) {
+            if (startCol === endCol) break;
+            matrix[i][startCol] = val;
+            val++;
+        };
+        spiralWalker(startRow+1, endRow-1, startCol+1, endCol-1);
+    };
+    spiralWalker(0, n-1, 0, n-1);
+    return matrix;
+};
