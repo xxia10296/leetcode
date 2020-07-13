@@ -1,0 +1,39 @@
+var connect = function(root) {
+    if (!root) return root;
+    let head = null; // child at next veritcal level
+    let pre = null; // used to connect to the next right node
+    let cur = root;
+    // outer while loop to move on to next vertical order
+    while (cur) {
+        // inner while loop keep shifting pre to the right and assign pointer
+        while (cur) {
+            // cur has left node;
+            if (cur.left) {
+                if (!head) {
+                    // nodes are not visited;
+                    head = cur.left;
+                    pre = cur.left;
+                } else {
+                    // head is assigned then assign pointer
+                    pre.next = cur.left;
+                    pre = pre.next;
+                }
+            }
+            if (cur.right) {
+                if (!head) {
+                    head = cur.right;
+                    pre = cur.right;
+                } else {
+                    pre.next = cur.right;
+                    pre = pre.next;
+                }
+            }   
+            cur = cur.next;
+        };
+        // move on the next vertical order
+        cur = head;
+        pre = null;
+        head = null;
+    };
+    return root;
+};
