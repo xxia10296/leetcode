@@ -1,0 +1,51 @@
+/**
+ * Initialize your data structure here.
+ */
+var MyHashSet = function() {
+    this.set = [];
+};
+
+/** 
+ * @param {number} key
+ * @return {void}
+ */
+MyHashSet.prototype.add = function(key) {
+    if (this.set.indexOf(key) === -1) {
+        this.set.push(key);
+        return true;
+    };
+    return false;
+};
+
+/** 
+ * @param {number} key
+ * @return {void}
+ */
+MyHashSet.prototype.remove = function(key) {
+    if (this.set.indexOf(key) > -1) {
+        let i = this.set.indexOf(key);
+        this.set.splice(i, 1);
+        return true;
+    };
+    return false;
+};
+
+/**
+ * Returns true if this set contains the specified element 
+ * @param {number} key
+ * @return {boolean}
+ */
+MyHashSet.prototype.contains = function(key) {
+    if (this.set.indexOf(key) > -1) {
+        return true;
+    };
+    return false;
+};
+
+/** 
+ * Your MyHashSet object will be instantiated and called as such:
+ * var obj = new MyHashSet()
+ * obj.add(key)
+ * obj.remove(key)
+ * var param_3 = obj.contains(key)
+ */
