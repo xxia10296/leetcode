@@ -1,0 +1,38 @@
+Given an array A of integers and integer K, return the maximum S such that there exists i < j with A[i] + A[j] = S and S < K. If no i, j exist satisfying this equation, return -1.
+
+ 
+
+Example 1:
+
+Input: A = [34,23,1,24,75,33,54,8], K = 60
+Output: 58
+Explanation: 
+We can use 34 and 24 to sum 58 which is less than 60.
+
+var twoSumLessThanK = function(A, K) {
+    A.sort((a, b) => a-b);
+    let lo = 0, hi = A.length-1;
+    let res = -1;
+    while (lo<hi) {
+        if (A[lo]+A[hi]<K) {
+            res = Math.max(res, A[lo]+A[hi]);
+            lo++;
+        } else {
+            hi--;
+        }
+    }
+    return res;
+};
+
+// O(n^2) || O(1)
+// var twoSumLessThanK = function(A, K) {
+//     let res = -1;
+//     for (let i = 0; i < A.length-1; i++) {
+//         for (let j = i+1; j < A.length; j++) {
+//             if (A[i] + A[j] < K) {
+//                 res = Math.max(res, A[i]+A[j])
+//             }
+//         }
+//     };
+//     return res;
+// };
