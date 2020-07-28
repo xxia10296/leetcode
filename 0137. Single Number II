@@ -1,0 +1,19 @@
+Given a non-empty array of integers, every element appears three times except for one, which appears exactly once. Find that single one.
+
+Note:
+
+Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+
+Example 1:
+
+Input: [2,2,3,2]
+Output: 3
+
+var singleNumber = function(nums) {
+    let once = 0, twice = 0;
+    for (let num of nums) {
+        once = (num ^ once) & (~twice);
+        twice = (num ^ twice) & (~once);
+    };
+    return once;
+};
