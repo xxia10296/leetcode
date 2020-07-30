@@ -1,0 +1,33 @@
+Example:
+
+Input:
+
+A = [
+  [ 1, 0, 0],
+  [-1, 0, 3]
+]
+
+B = [
+  [ 7, 0, 0 ],
+  [ 0, 0, 0 ],
+  [ 0, 0, 1 ]
+]
+
+Output:
+
+     |  1 0 0 |   | 7 0 0 |   |  7 0 0 |
+AB = | -1 0 3 | x | 0 0 0 | = | -7 0 3 |
+                  | 0 0 1 |
+                  
+var multiply = function(A, B) {
+    let row = A.length, col = B[0].length, ele = B.length;
+    let res = new Array(row).fill(0).map(el => new Array(col).fill(0));
+    for (let i = 0; i < row; i++) {
+        for (let j = 0; j < col; j++) {
+            for (let k = 0; k < ele; k++) {
+                res[i][j] += A[i][k] * B[k][j]
+            }
+        }
+    }
+    return res;
+};
