@@ -1,0 +1,36 @@
+function minWindow(s, t) {
+    const freq = {};
+    let missing = 0; 
+    let minLen = 0, start = 0; 
+    let l = 0, r = 0; 
+
+    for(let c of t) {
+        if(!freq[c]) {
+            missing++;
+            freq[c] = 1;
+        } else freq[c]++;
+    };
+    
+    
+    while(r < s.length) {
+        if(freq[s[r]] !== undefined) {
+            freq[s[r]]--;
+            if(!freq[s[r]]) missing--;
+        }
+        
+        // when valid substr shrink the window, l++
+        while(missing === 0) { 
+            if(!minLen || r-l+1 < minLen) {
+                minLen = r-l+1;
+                start = l;
+            }
+            if(freq[s[l]] !== undefined) {
+                if(!freq[s[l]]) missing++; // becomes invalid
+                freq[s[l]]++;
+            }
+            l++;
+        }
+        r++;
+    }
+    return s.slice(start, start+minLen);
+}
