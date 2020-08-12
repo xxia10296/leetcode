@@ -1,0 +1,22 @@
+Given a string, determine if a permutation of the string could form a palindrome.
+
+Example 1:
+
+Input: "code"
+Output: false
+Example 2:
+
+Input: "aab"
+Output: true
+
+var canPermutePalindrome = function(s) {
+    let map = new Map();
+    for (let char of s) {
+        if (map.has(char)) {
+            map.delete(char);
+        } else {
+            map.set(char, 1);
+        }
+    };
+    return map.size <= 1;
+};
