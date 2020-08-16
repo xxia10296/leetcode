@@ -1,0 +1,46 @@
+Given a string s, partition s such that every substring of the partition is a palindrome.
+
+Return all possible palindrome partitioning of s.
+
+Example:
+
+Input: "aab"
+Output:
+[
+  ["aa","b"],
+  ["a","a","b"]
+]
+
+var partition = function(s) {
+    let res = [];
+    if (s === null || s.length === 0) return res;
+    helper(s, curList=[], res);
+    return res;
+};
+
+var helper = function(s, curList, res) {
+    if (s === null || s.length === 0) {
+        res.push([...curList]);
+    };
+    
+    for (let i = 1; i <= s.length; i++) {
+        let curString = s.substring(0, i);
+        if (isPal(curString)) {
+            curList.push(curString);
+            helper(s.substring(i, s.length), curList, res);
+            curList.pop();
+        }
+    };
+};
+
+var isPal = function(s) {
+    let left = 0, right = s.length-1;
+    while (left <= right) {
+        if (s[left] !== s[right]) {
+            return false;
+        } else {
+            left++, right--;
+        }
+    };
+    return true;
+}
