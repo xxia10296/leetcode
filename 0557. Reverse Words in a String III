@@ -1,0 +1,31 @@
+Given a string, you need to reverse the order of characters in each word within a sentence while still preserving whitespace and initial word order.
+
+Example 1:
+Input: "Let's take LeetCode contest"
+Output: "s'teL ekat edoCteeL tsetnoc"
+Note: In the string, each word is separated by single space and there will not be any extra space in the string.
+
+var reverseWords = function(s) {
+    let arr = s.trim().split(/ +/);
+    let res = '';
+    for (let i = 0; i < arr.length; i++) {
+        if (i !== arr.length-1) {
+            res += reverse(arr[i]) + ' ';
+        } else {
+            res += reverse(arr[i]);
+        };  
+    };
+    return res;
+};
+
+var reverse = function(str) {
+    let arr = str.split('')
+    let left = 0, right = arr.length-1;
+    while (left< right) {
+        let tmp = arr[left]
+        arr[left] = arr[right];
+        arr[right] = tmp;
+        left++, right--;
+    };
+    return arr.join('');
+}
