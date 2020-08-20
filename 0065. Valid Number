@@ -1,0 +1,27 @@
+var isNumber = function(s) {
+    
+    s = s.trim();
+    let numSeen = false;
+    let eSeen = false;
+    let numAfterE = false;
+    let dotSeen = false;
+    for (let i = 0; i < s.length; i++) {
+        let c = s.charAt(i);
+        if (c >= '0' && c <= '9') {
+            numSeen = true;
+            numAfterE = true;
+        } else if (c === 'e') {
+            if (eSeen || !numSeen) return false;
+            eSeen = true;
+            numAfterE = false;
+        } else if (c === '-' || c === '+') {
+            if (i !== 0 && s.charAt(i-1) !== 'e') return false; 
+        } else if (c === '.') {
+            if (dotSeen || eSeen) return false;
+            dotSeen = true;
+        } else {
+            return false;
+        }
+    };
+    return numAfterE && numSeen;
+};
