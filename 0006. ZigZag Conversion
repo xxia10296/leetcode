@@ -1,0 +1,20 @@
+var convert = function(s, numRows) {
+    let len = s.length;
+    let arr = [];
+    let count = 0;
+    if (numRows > len || numRows === 1) return s;
+    
+    let interval = 2*numRows - 2;
+    for (let i = 0; i < numRows; i++) {
+        let step = interval-2*i;
+        for (let j = i; j < len; j+=interval) {
+            arr[count] = s.charAt(j);
+            count++; 
+            if (step > 0 && step < interval && j+step < len) {
+                arr[count] = s.charAt(j+step);
+                count++;
+            }
+        }
+    };
+    return arr.join('');
+};
